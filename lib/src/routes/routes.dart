@@ -6,8 +6,9 @@ import 'package:jhentai/src/pages/download/download_base_page.dart';
 import 'package:jhentai/src/pages/download_search/download_search_page.dart';
 import 'package:jhentai/src/pages/gallery_image/gallery_image_page.dart';
 import 'package:jhentai/src/pages/gallerys/dashboard/dashboard_page.dart';
-import 'package:jhentai/src/pages/history/history_page.dart';
 import 'package:jhentai/src/pages/gallerys/simple/gallerys_page.dart';
+import 'package:jhentai/src/pages/history/history_page.dart';
+import 'package:jhentai/src/pages/home_page.dart';
 import 'package:jhentai/src/pages/layout/desktop/desktop_home_page.dart';
 import 'package:jhentai/src/pages/lock_page.dart';
 import 'package:jhentai/src/pages/popular/popular_page.dart';
@@ -25,6 +26,7 @@ import 'package:jhentai/src/pages/setting/download/extra_gallery_scan_path/extra
 import 'package:jhentai/src/pages/setting/download/setting_download_page.dart';
 import 'package:jhentai/src/pages/setting/eh/setting_eh_page.dart';
 import 'package:jhentai/src/pages/setting/eh/tagsets/tag_sets_page.dart';
+import 'package:jhentai/src/pages/setting/keyboard_shortcuts/setting_keyboard_shortcuts_page.dart';
 import 'package:jhentai/src/pages/setting/mousewheel/setting_mouse_wheel_page.dart';
 import 'package:jhentai/src/pages/setting/network/proxy/setting_proxy_page.dart';
 import 'package:jhentai/src/pages/setting/network/setting_network_page.dart';
@@ -35,7 +37,6 @@ import 'package:jhentai/src/pages/setting/read/setting_read_page.dart';
 import 'package:jhentai/src/pages/setting/security/setting_security_page.dart';
 import 'package:jhentai/src/pages/setting/setting_page.dart';
 import 'package:jhentai/src/pages/setting/style/setting_style_page.dart';
-import 'package:jhentai/src/pages/home_page.dart';
 import 'package:jhentai/src/pages/watched/watched_page.dart';
 import 'package:jhentai/src/pages/webview/webview_page.dart';
 import 'package:jhentai/src/setting/preference_setting.dart';
@@ -102,6 +103,7 @@ class Routes {
   static const String settingCloud = "/setting_cloud";
   static const String settingSecurity = "/setting_security";
   static const String settingAbout = "/setting_about";
+  static const String settingKeyboardShortcuts = "/setting_read/keyboard_shortcuts";
 
   static const String login = "/setting_account/login";
   static const String cookie = "/setting_account/cookie";
@@ -285,6 +287,12 @@ class Routes {
       name: settingRead,
       page: () => SettingReadPage().withEscOrFifthButton2BackRightRoute(),
       transition: defaultTransition,
+    ),
+    EHPage(
+      name: settingKeyboardShortcuts,
+      page: () => const SettingKeyboardShortcutsPage().withEscOrFifthButton2BackRightRoute(),
+      transition: defaultTransition,
+      offAllBefore: false,
     ),
     EHPage(
       name: settingPreference,
