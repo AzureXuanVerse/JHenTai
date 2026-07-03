@@ -1026,7 +1026,7 @@ class DetailsPageLogic extends GetxController with LoginRequiredMixin, Scroll2To
     GalleryDownloadedData gallery = galleryDownloadService.gallerys.firstWhere((g) => g.gid == state.galleryUrl.gid);
 
     if (readSetting.useThirdPartyViewer.isTrue && readSetting.thirdPartyViewerPath.value != null) {
-      openThirdPartyViewer(galleryDownloadService.computeGalleryDownloadAbsolutePath(gallery.title, gallery.gid));
+      openThirdPartyViewer(galleryDownloadService.computeGalleryDownloadAbsolutePath(gallery));
       return;
     }
 
