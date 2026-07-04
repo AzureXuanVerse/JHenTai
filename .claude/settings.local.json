@@ -17,7 +17,8 @@
       "Bash(npx --version)",
       "Bash(npx skills@latest *)",
       "PowerShell(Test-Path *)",
-      "Bash(dart analyze *)"
+      "Bash(dart analyze *)",
+      "WebFetch(domain:pub.dev)"
     ]
   }
 }
