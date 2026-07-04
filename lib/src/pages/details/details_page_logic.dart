@@ -874,6 +874,7 @@ class DetailsPageLogic extends GetxController with LoginRequiredMixin, Scroll2To
       gid: state.galleryDetails!.galleryUrl.gid,
       token: state.galleryDetails!.galleryUrl.token,
       apikey: state.apikey!,
+      voteStatus: tag.voteStatus,
       onTagVoted: (bool isVoted) => onTagVoted(tag, isVoted),
     ));
   }
