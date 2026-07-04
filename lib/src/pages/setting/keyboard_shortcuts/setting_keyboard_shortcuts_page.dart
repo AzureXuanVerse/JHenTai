@@ -272,7 +272,6 @@ class _SettingKeyboardShortcutsPageState extends State<SettingKeyboardShortcutsP
       return;
     }
     final int slot = _capturingSlot;
-
     setState(() {
       _capturingAction = null;
     });
@@ -331,12 +330,18 @@ class _SettingKeyboardShortcutsPageState extends State<SettingKeyboardShortcutsP
 
   String _bindingLabel(ReadActionBinding binding) {
     if (binding.isKeyboard) {
-      return binding.logicalKey?.debugName ?? '';
+      if (binding.logicalKey!.keyLabel == ' ') {
+        return 'Space';
+      }
+      return binding.logicalKey!.keyLabel;
     }
     if (binding.isMouseButton4) {
       return 'mouseButton4Name'.tr;
     }
-    return 'mouseButton5Name'.tr;
+    if (binding.isMouseButton5) {
+      return 'mouseButton5Name'.tr;
+    }
+    return '?';
   }
 
   String _actionLabel(ReadAction action) {
