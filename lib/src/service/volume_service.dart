@@ -1,13 +1,19 @@
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:volume_key_board/volume_key_board.dart';
 
 import 'jh_service.dart';
+import 'log.dart';
 
 VolumeService volumeService = VolumeService();
 
 class VolumeService extends GetxService with JHLifeCircleBeanErrorCatch implements JHLifeCircleBean {
+  late final MethodChannel methodChannel;
+
   Function(VolumeEventType)? _onData;
-  bool _isIntercepting = false;
+
+  static const int volumeUp = 1;
+  static const int volumeDown = -1;
 
   @override
   Future<void> doInitBean() async {
@@ -15,7 +21,11 @@ class VolumeService extends GetxService with JHLifeCircleBeanErrorCatch implemen
   }
 
   @override
-  Future<void> doAfterBeanReady() async {}
+  Future<void> doAfterBeanReady() async {
+    if (GetPlatform.isAndroid) {
+      methodChannel = const MethodChannel('top.jtmonster.jhentai.volume.event.intercept');
+    }
+  }
 
   @override
   void onClose() {
@@ -24,11 +34,19 @@ class VolumeService extends GetxService with JHLifeCircleBeanErrorCatch implemen
   }
 
   Future<void> setInterceptVolumeEvent(bool value) async {
-    _isIntercepting = value;
-    if (value && _onData != null) {
-      VolumeKeyBoard.instance.addListener(_onVolumeKeyEvent);
-    } else {
-      VolumeKeyBoard.instance.removeListener();
+    if (GetPlatform.isAndroid) {
+      try {
+        await methodChannel.invokeMethod('set', value);
+      } on PlatformException catch (e) {
+        log.error('Set intercept volume event error!', e);
+        log.uploadError(e);
+      }
+    } else if (GetPlatform.isIOS) {
+      if (value && _onData != null) {
+        VolumeKeyBoard.instance.addListener(_onVolumeKeyEvent);
+      } else {
+        VolumeKeyBoard.instance.removeListener();
+      }
     }
   }
 
@@ -42,15 +60,29 @@ class VolumeService extends GetxService with JHLifeCircleBeanErrorCatch implemen
 
   void listen(Function(VolumeEventType)? onData) {
     _onData = onData;
-    if (_isIntercepting) {
-      VolumeKeyBoard.instance.addListener(_onVolumeKeyEvent);
+
+    if (GetPlatform.isAndroid) {
+      methodChannel.setMethodCallHandler((MethodCall call) {
+        if (call.method == 'event') {
+          final int eventType = call.arguments as int;
+          if (eventType == volumeUp) {
+            onData?.call(VolumeEventType.volumeUp);
+          } else if (eventType == volumeDown) {
+            onData?.call(VolumeEventType.volumeDown);
+          }
+        }
+        return Future.value();
+      });
     }
   }
 
   void cancelListen() {
-    VolumeKeyBoard.instance.removeListener();
+    if (GetPlatform.isAndroid) {
+      methodChannel.setMethodCallHandler(null);
+    } else if (GetPlatform.isIOS) {
+      VolumeKeyBoard.instance.removeListener();
+    }
     _onData = null;
-    _isIntercepting = false;
   }
 }
 
