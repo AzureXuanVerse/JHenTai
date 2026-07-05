@@ -18,7 +18,8 @@
       "Bash(npx skills@latest *)",
       "PowerShell(Test-Path *)",
       "Bash(dart analyze *)",
-      "WebFetch(domain:pub.dev)"
+      "WebFetch(domain:pub.dev)",
+      "Bash(echo \"exit: $?\")"
     ]
   }
 }
