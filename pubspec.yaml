@@ -2,7 +2,7 @@ name: jhentai
 description: A flutter app for E-Hentai/EXHentai
 
 publish_to: 'none'
-version: 8.0.14+323
+version: 8.0.14+324
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -63,7 +63,7 @@ dependencies:
   photo_view:
     git:
       url: https://github.com/jiangtian616/photo_view
-      ref: separate
+      ref: 1fecde37
   zoom_view: 
     git: https://github.com/jiangtian616/zoom_view
   package_info_plus: 8.0.3
