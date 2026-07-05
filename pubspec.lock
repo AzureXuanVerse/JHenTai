@@ -1272,7 +1272,7 @@ packages:
     description:
       path: "."
       ref: separate
-      resolved-ref: "0103e5f87804561161806759b3eb4d1231e20de2"
+      resolved-ref: "56b92f7bfbd3bbf4eaa123933631d22b69a760fa"
       url: "https://github.com/jiangtian616/photo_view"
     source: git
     version: "0.14.0"
