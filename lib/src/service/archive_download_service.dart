@@ -118,9 +118,12 @@ class ArchiveDownloadService extends GetxController with GridBasePageServiceMixi
       if (archiveDownloadInfos.containsKey(archive.gid)) {
         return;
       }
-      if (!await _initArchiveInfo(archive)) {
+
+      ArchiveDownloadedData? archiveWithSanitizedTitle = await _initArchiveInfo(archive);
+      if (archiveWithSanitizedTitle == null) {
         return;
       }
+      archive = archiveWithSanitizedTitle;
 
       _generateComicInfoInDisk(archive);
     }
@@ -1109,18 +1112,18 @@ class ArchiveDownloadService extends GetxController with GridBasePageServiceMixi
     _sortArchives();
   }
 
-  Future<bool> _initArchiveInfo(ArchiveDownloadedData archive) async {
+  Future<ArchiveDownloadedData?> _initArchiveInfo(ArchiveDownloadedData archive) async {
     /// Compute and attach the sanitized title before the first DB write so the
     /// path is frozen for the lifetime of this download task.
     final int reservedBytes = utf8.encode('Archive - ${archive.gid} - ').length;
     archive = archive.copyWith(sanitizedTitle: Value(_computeSanitizedArchiveTitle(archive.title, reservedBytes)));
-    
+
     if (!await _saveArchiveAndGroupInDatabase(archive)) {
-      return false;
+      return null;
     }
-    
+
     _initArchiveInMemory(archive);
-    return true;
+    return archive;
   }
 
   Future<bool> _addGroup(String group) async {
