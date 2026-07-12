@@ -546,6 +546,7 @@ class ko_KR {
       /// preference setting page
       'showR18GImageDirectly': 'R18G 이미지 표시',
       'defaultTab': 'Default Tab',
+      'defaultDownloadTab': 'Default Download Tab',
       'showUtcTime': 'Show UTC Time for Gallery',
       'showDawnInfo': 'Show new dawn event',
       'showEncounterMonster': 'Show hentaiVerse monster encounter event',

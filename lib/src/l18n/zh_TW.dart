@@ -546,6 +546,7 @@ class zh_TW {
       /// preference setting page
       'showR18GImageDirectly': '標籤資料中直接顯示R18G圖片',
       'defaultTab': '啟動時預設選單',
+      'defaultDownloadTab': '下載頁預設選單',
       'showUtcTime': '畫廊時間使用UTC顯示',
       'showDawnInfo': '顯示黎明之時事件',
       'showEncounterMonster': '顯示HV遭遇戰事件',

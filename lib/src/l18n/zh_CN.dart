@@ -546,6 +546,7 @@ class zh_CN {
       /// preference setting page
       'showR18GImageDirectly': '标签数据中直接显示R18G图片',
       'defaultTab': '启动时默认菜单',
+      'defaultDownloadTab': '下载页默认菜单',
       'showUtcTime': '画廊时间使用UTC展示',
       'showDawnInfo': '展示黎明之时事件',
       'showEncounterMonster': '展示HV遭遇战事件',
